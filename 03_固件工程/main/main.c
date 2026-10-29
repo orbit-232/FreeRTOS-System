@@ -7,9 +7,8 @@
 #include "nvs_flash.h"
 
 #include "panel_bsp.h"
+#include "panel_music_ui.h"
 #include "panel_services.h"
-#include "ui.h"
-#include "ui_diag.h"
 
 static const char *TAG = "waveshare_panel";
 
@@ -34,10 +33,10 @@ void app_main(void)
     ESP_ERROR_CHECK(err);
 
     ESP_ERROR_CHECK(panel_bsp_init());
-    ESP_ERROR_CHECK(panel_services_init());
+    ESP_ERROR_CHECK(panel_services_init_music_only());
 
-    ui_start();
-    ui_diag_start_console();
+    panel_music_ui_start();
+    panel_music_ui_start_console();
     ESP_LOGI(TAG, "application started; free heap=%u psram=%u",
              (unsigned)heap_caps_get_free_size(MALLOC_CAP_INTERNAL),
              (unsigned)heap_caps_get_free_size(MALLOC_CAP_SPIRAM));

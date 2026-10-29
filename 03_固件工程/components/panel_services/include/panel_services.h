@@ -28,6 +28,10 @@ typedef struct {
 /** Initialize NVS-backed settings, apply backlight and seed the local clock. */
 esp_err_t panel_services_init(void);
 
+/** Music-only startup: backlight + TF + audio + music worker.
+ * Does not start Wi-Fi/BLE, weather, clock, wallpaper or external fonts. */
+esp_err_t panel_services_init_music_only(void);
+
 /** Copy the current settings snapshot (thread-safe). */
 void panel_services_get_settings(panel_settings_t *out);
 

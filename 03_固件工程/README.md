@@ -1,46 +1,54 @@
 # WavesharePanel 固件
 
+当前分支 `music-player` 的启动界面已切换为**纯音乐播放器**；旧七页多功能 UI 只保留在
+`main` 分支与已归档固件中回退，不进入当前启动路径。
+
 ## 分层
 
 ```text
 app_main
-  └─ panel_ui      七页原生 LVGL、导航、主题、字体、手势
-       ├─ panel_services   NVS 设置、时钟种子、运行时快照
-       │    ├─ panel_model 计算器、设置模型（无 LVGL）
-       │    └─ panel_bsp   唯一显示旋转/触摸变换/背光入口
+  └─ panel_music_ui    单屏播放器、真实状态刷新、seek 交互、串口诊断
+       ├─ panel_music      真实 MP3 worker、状态机、连续播放、收藏/随机/循环
+       │    ├─ panel_music_index   帧扫描、VBR 时长、稀疏字节索引
+       │    ├─ minimp3 / panel_audio / panel_files
+       │    └─ PSRAM scratch + index
+       ├─ panel_bsp        唯一显示旋转/触摸映射/背光/LVGL 锁
        └─ LVGL 9.5.0 + esp_lvgl_adapter 0.6.4
-            └─ waveshare/esp32_p4_wifi6_touch_lcd_x 2.0.3
-                 └─ ESP-IDF 6.0.2 / JD9365 / GT9271
+            └─ ESP-IDF 6.0.2 / JD9365 / GT9271
 ```
 
-## 配置
+## 配置与构建
 
-- `sdkconfig.defaults`：目标、32MB Flash、PSRAM、分区表、LVGL、字体。
-- `config/sdkconfig/lcd-10-1.defaults`：10.1 寸 800×1280 BSP。
-- `config/sdkconfig/rev1_3.defaults`：pre-v3、最低 Rev1.0；必须最后加载。
-- `config/sdkconfig/rev3_x.defaults`：仅作文档对照，未用于构建。
+- `sdkconfig.rev1_3`：ESP32-P4 Rev1.3、32MB Flash、PSRAM、LVGL 9.5。
+- 构建入口：`04_开发工具/build.ps1 -BuildName build-music-player`
+- 产物：`build-music-player/waveshare_panel.bin` 等。
+- 不改变 BSP 引脚、屏幕方向、触摸映射、TF 共享 SDMMC 和既有内存配置。
 
-构建目录：`build-rev1_3/`。服务使用官方 `esp_lv_adapter` 的 LVGL 任务/锁，不另起 LVGL 调度。
+## 当前界面
 
-## 输出
+- 仅音乐页：1280×800、中心 x=640、深色背景、380 px 进度环、344 px 唱片、
+  180 px 封面、左右曲目卡、真实歌名/歌手/时间与播放状态。
+- 1 秒定时器只刷新真实状态；播放、暂停、seek、连续播放均由后端决定。
+- 列表/队列/下载/更多/最小化未实现，按钮显示明确的不可用提示。
 
-- `build-rev1_3/waveshare_panel.bin`：factory app。
-- `build-rev1_3/bootloader/bootloader.bin`：0x2000。
-- `build-rev1_3/partition_table/partition-table.bin`：0x8000。
-- `build-rev1_3/waveshare_panel.elf` / `.map`。
+## 输入与资源
 
-## 已实现的七页
+| 输入 | 来源 | 说明 |
+| --- | --- | --- |
+| 音乐 | `/sdcard/panel/music/*.mp3` | 四首真实曲目，TF 共享 SDMMC |
+| 触摸 | GT9271 | 沿用 `panel_bsp` 的精确映射 |
+| 显示 | JD9365 1280×800 | BSP rotation270，RGB565 |
 
-1. 锁屏：本地时钟、未校时标记、示例通知、上滑或点击解锁。
-2. 主屏：两页（应用、系统概览）、9 个应用入口、实时堆/PSRAM、未实现应用提示。
-3. 控制中心：顶部下拉开、底部上滑/关闭；真实背光；无线/音量/媒体明确演示。
-4. 设置：网络、显示、声音、通知、系统、关于六节；亮度/主题/动画/休眠生效，自动亮度禁用并说明，触摸校准实机待验收。
-5. 天气：当前/逐小时/未来几天，全部明确标注演示天气，不联网。
-6. 监视器：运行时间、堆、PSRAM、任务数实测；60 秒堆历史；CPU/FPS/温度无可信接口则不显示。
-7. 计算器：四则运算、连续运算、小数、正负号、百分号、清空、退格、历史、除零/溢出/超长错误。
+素材预烘焙在 Flash；Noto Sans SC 子集为 4bpp raw；图标为自制 SVG→A8。
+详细设计与证据见：
 
-## 实机状态
+- `01_项目文档/音乐播放器架构说明.md`
+- `01_项目文档/音乐播放器验证记录.md`
 
-- 2026-10-20 已通过 COM3 烧录到 ESP32-P4 rev1.3（32MB Flash），写入与独立校验成功；启动日志 5,217 字节，显示/触摸/LVGL 初始化完成。
-- 屏幕旋转后的四角/中心触摸、上滑/下滑/左右滑手势、背光实际亮度与休眠唤醒：仍需现场逐项验收。
-- `04_开发工具/界面模拟器/screenshots/` 是主机 LVGL 渲染，不是面板照片。
+## 状态
+
+- 主机编译、真实 MP3 索引/seek 解码测试、主机界面点击与渲染已通过。
+- 未提交、未烧录、未操作 COM/TF；实板触摸、seek 听感、连续播放和 20 秒封面旋转
+  待 Codex 独立验证。
+- `04_开发工具/音乐界面模拟器/screenshots/` 是主机渲染，不是面板照片。
+- 稳定回退：`05_版本发布/v1.3.0-fps-memory-kept`（未修改）。

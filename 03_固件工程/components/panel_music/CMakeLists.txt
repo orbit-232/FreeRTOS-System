@@ -3,7 +3,7 @@
 # entry point was 16256 B (scratch 16236 B). The player now allocates that
 # scratch once in PSRAM and reuses it for every frame. Recheck target highwater.
 idf_component_register(
-    SRCS "src/panel_music.c" "src/panel_music_tracks.c" "src/panel_music_import.c" "src/panel_music_import_policy.c" "src/panel_music_resample.c"
+    SRCS "src/panel_music.c" "src/panel_music_tracks.c" "src/panel_music_import.c" "src/panel_music_import_policy.c" "src/panel_music_resample.c" "src/panel_music_index.c" "src/panel_music_prebuilt_data.c"
     INCLUDE_DIRS "include"
     REQUIRES panel_files panel_audio panel_network minimp3 esp_http_server
 )

@@ -1,0 +1,85 @@
+{
+  "glyphs": 177,
+  "jobs": [
+    {
+      "name": "music_font_12",
+      "size": 12,
+      "font": "components/panel_ui/assets/font/NotoSansSC-Regular.otf",
+      "output": "components/panel_music_ui/fonts/music_font_12.c",
+      "bytes": 130475,
+      "bitmap_format": 0,
+      "license": "SIL Open Font License 1.1",
+      "font_family": "Noto Sans SC",
+      "font_version": "Version 2.002",
+      "copyright": "© 2014-2020 Adobe (http://www.adobe.com/).",
+      "license_file": "components/panel_music_ui/fonts/OFL.txt"
+    },
+    {
+      "name": "music_font_13",
+      "size": 13,
+      "font": "components/panel_ui/assets/font/NotoSansSC-Regular.otf",
+      "output": "components/panel_music_ui/fonts/music_font_13.c",
+      "bytes": 141730,
+      "bitmap_format": 0,
+      "license": "SIL Open Font License 1.1",
+      "font_family": "Noto Sans SC",
+      "font_version": "Version 2.002",
+      "copyright": "© 2014-2020 Adobe (http://www.adobe.com/).",
+      "license_file": "components/panel_music_ui/fonts/OFL.txt"
+    },
+    {
+      "name": "music_font_14",
+      "size": 14,
+      "font": "components/panel_ui/assets/font/NotoSansSC-Regular.otf",
+      "output": "components/panel_music_ui/fonts/music_font_14.c",
+      "bytes": 158250,
+      "bitmap_format": 0,
+      "license": "SIL Open Font License 1.1",
+      "font_family": "Noto Sans SC",
+      "font_version": "Version 2.002",
+      "copyright": "© 2014-2020 Adobe (http://www.adobe.com/).",
+      "license_file": "components/panel_music_ui/fonts/OFL.txt"
+    },
+    {
+      "name": "music_font_16",
+      "size": 16,
+      "font": "components/panel_ui/assets/font/NotoSansSC-Regular.otf",
+      "output": "components/panel_music_ui/fonts/music_font_16.c",
+      "bytes": 189454,
+      "bitmap_format": 0,
+      "license": "SIL Open Font License 1.1",
+      "font_family": "Noto Sans SC",
+      "font_version": "Version 2.002",
+      "copyright": "© 2014-2020 Adobe (http://www.adobe.com/).",
+      "license_file": "components/panel_music_ui/fonts/OFL.txt"
+    },
+    {
+      "name": "music_font_15_bold",
+      "size": 15,
+      "font": "system Noto Sans SC Bold 2.002 (set NOTO_SANS_SC_BOLD)",
+      "output": "components/panel_music_ui/fonts/music_font_15_bold.c",
+      "bytes": 183319,
+      "bitmap_format": 0,
+      "license": "SIL Open Font License 1.1",
+      "font_family": "Noto Sans SC",
+      "font_version": "Version 2.002",
+      "copyright": "© 2014-2020 Adobe (http://www.adobe.com/).",
+      "license_file": "components/panel_music_ui/fonts/OFL.txt"
+    },
+    {
+      "name": "music_font_32_bold",
+      "size": 32,
+      "font": "system Noto Sans SC Bold 2.002 (set NOTO_SANS_SC_BOLD)",
+      "output": "components/panel_music_ui/fonts/music_font_32_bold.c",
+      "bytes": 630330,
+      "bitmap_format": 0,
+      "license": "SIL Open Font License 1.1",
+      "font_family": "Noto Sans SC",
+      "font_version": "Version 2.002",
+      "copyright": "© 2014-2020 Adobe (http://www.adobe.com/).",
+      "license_file": "components/panel_music_ui/fonts/OFL.txt"
+    }
+  ],
+  "source_notice": "components/panel_music_ui/fonts/FONT_NOTICE.md",
+  "font_license": "SIL Open Font License 1.1"
+}

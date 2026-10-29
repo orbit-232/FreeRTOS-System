@@ -21,6 +21,8 @@ __pycache__/
 04_开发工具/字体依赖/node_modules/
 04_开发工具/界面模拟器/build/
 04_开发工具/界面模拟器/screenshots/*.ppm
+04_开发工具/音乐界面模拟器/build/
+04_开发工具/音乐界面模拟器/screenshots/*.ppm
 /01_Docs
 /02_Hardware
 /03_Firmware

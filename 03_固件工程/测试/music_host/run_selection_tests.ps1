@@ -11,6 +11,7 @@ New-Item -ItemType Directory -Force -Path $out | Out-Null
     (Join-Path $root 'components/panel_music/src/panel_music.c') `
     (Join-Path $root 'components/panel_music/src/panel_music_tracks.c') `
     (Join-Path $root 'components/panel_music/src/panel_music_resample.c') `
+    (Join-Path $root 'components/panel_music/src/panel_music_index.c') `
     (Join-Path $root 'components/minimp3/src/minimp3_impl.c') `
     (Join-Path $test 'test_selection.c') -lm -o (Join-Path $out 'test_selection.exe')
 if ($LASTEXITCODE -ne 0) { throw 'music selection compile failed' }

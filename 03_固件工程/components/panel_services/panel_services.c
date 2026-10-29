@@ -312,6 +312,38 @@ esp_err_t panel_services_init(void)
     return ESP_OK;
 }
 
+esp_err_t panel_services_init_music_only(void)
+{
+    /* Keep only the runtime pieces required by the player.  ESP-Hosted's
+     * transport constructor still owns SDMMC slot 1, which is why
+     * panel_files_init() can attach TF on slot 0 without reinitialising the
+     * shared controller.  No Wi-Fi/BLE worker is created here. */
+    panel_settings_set_defaults(&s_settings);
+    esp_err_t err = panel_bsp_set_brightness(s_settings.brightness);
+    if (err != ESP_OK) {
+        ESP_LOGE(TAG, "music-only brightness failed: %s", esp_err_to_name(err));
+        return err;
+    }
+    err = panel_files_init();
+    if (err != ESP_OK) {
+        ESP_LOGW(TAG, "music-only TF init: %s", esp_err_to_name(err));
+    }
+    err = panel_audio_init();
+    if (err != ESP_OK) {
+        ESP_LOGE(TAG, "music-only audio init failed: %s", esp_err_to_name(err));
+        return err;
+    }
+    err = panel_music_init();
+    if (err != ESP_OK) {
+        ESP_LOGE(TAG, "music-only player init failed: %s", esp_err_to_name(err));
+        return err;
+    }
+    ESP_LOGI(TAG, "music-only services ready: heap=%u psram=%u",
+             (unsigned)heap_caps_get_free_size(MALLOC_CAP_INTERNAL),
+             (unsigned)heap_caps_get_free_size(MALLOC_CAP_SPIRAM));
+    return ESP_OK;
+}
+
 void panel_services_get_settings(panel_settings_t *out)
 {
     if (out == NULL) {
