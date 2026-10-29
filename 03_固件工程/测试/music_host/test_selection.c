@@ -35,6 +35,7 @@ int xTaskCreate(void (*fn)(void *), const char *name, unsigned stack, void *arg,
     return pdPASS;
 }
 void vTaskDelay(TickType_t t) { (void)t; }
+void vTaskDelete(TaskHandle_t t) { (void)t; }
 TickType_t xTaskGetTickCount(void) { return 0; }
 unsigned uxTaskGetStackHighWaterMark(TaskHandle_t t) { (void)t; return 4096; }
 
