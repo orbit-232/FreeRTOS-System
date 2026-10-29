@@ -1,0 +1,16 @@
+Host test-only cJSON source
+===========================
+
+Upstream: https://github.com/DaveGamble/cJSON
+Tag: v1.7.19
+Files: cJSON.c, cJSON.h, LICENSE (MIT)
+
+The firmware dependency is declared in main/idf_component.yml as
+`espressif/cjson` version `1.7.19~2` and is resolved into managed_components by
+the IDF component manager during Codex's build.  These files are only linked by
+the host model/worker tests; no managed_components or vendor file is edited.
+
+SHA256:
+298581A04A36C0165DA4B0AADE235C23088CB2FAA58651D720EA2F3706ED0B0D  cJSON.c
+25B0145150D500498E4D209CEC69C18C42CF818BFFCC54690BE3B895A2A16DEE  cJSON.h
+A36DDA207C36DB5818729C54E7AD4E8B0C6FBA847491BA64F372C1A2037B6D5C  LICENSE

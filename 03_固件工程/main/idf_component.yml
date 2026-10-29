@@ -1,0 +1,14 @@
+dependencies:
+  idf: ">=5.5,<6.1"
+  lvgl/lvgl:
+    version: "9.5.0"
+    public: true
+  waveshare/esp32_p4_wifi6_touch_lcd_x:
+    version: "^2.0.3"
+    public: true
+  espressif/esp_wifi_remote:
+    version: ">=1.6,<2.0"
+  espressif/esp_hosted:
+    version: ">=2.12,<3.0"
+  espressif/cjson:
+    version: "1.7.19~2"
